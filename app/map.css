@@ -1,0 +1,6 @@
+.map-container {
+    position: relative;
+    max-height: 50vh;
+    max-width: 80vw;
+    background-color: red;
+}
