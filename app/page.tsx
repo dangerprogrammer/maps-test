@@ -2,30 +2,30 @@
 
 import { LatLngExpression } from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-// import axios from 'axios';
 import { useEffect, useState } from "react";
+import { device_result } from "@/types";
 
 function Home() {
   const position: LatLngExpression = [51.505, -0.09];
-  // const [dados, setDados] = useState([]);
-  // const [isLoading, setIsLoading] = useState(!0);
+  const [deviceResults, setDeviceResults] = useState<device_result[]>([]);
+  const [isLoading, setIsLoading] = useState(!0);
 
   useEffect(() => {
-    // axios.get('http://127.0.0.1:8000/api/gps')
-    //   .then(response => {
-    //     setDados(response.data);
-    //     console.log(response.data);
-    //     setIsLoading(!1);
-    //   })
-    //   .catch(error => {
-    //     console.error('Erro:', error);
-    //     setIsLoading(!1);
-    //   });
+    async function getGPS() {
+      const data = await fetch('http://127.0.0.1:8000/api/contentors/');
+      const gps = (await data.json()) as device_result[];
+
+      setIsLoading(!1);
+      setDeviceResults(gps);
+      console.log(gps);
+    };
+
+    getGPS();
   }, []);
 
-  // if (isLoading) {
-  //   return <div> Carregando...</div>;
-  // }
+  if (isLoading) {
+    return <div> Carregando...</div>;
+  }
 
   return <>
     <h1>Hello, World!</h1>
