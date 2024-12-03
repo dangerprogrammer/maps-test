@@ -1,12 +1,12 @@
 'use client';
 
-// import { LatLngExpression } from "leaflet";
+import { LatLngExpression } from "leaflet";
 import { useEffect, useState } from "react";
 import { device_result } from "@/types";
 // import MapComponent from "@/components/map-component";
 
 function Home() {
-  // const position: LatLngExpression = [51.505, -0.09];
+  const position: LatLngExpression = [51.505, -0.09];
   const [deviceResults, setDeviceResults] = useState<device_result[]>([]);
   const [isLoading, setIsLoading] = useState(!0);
 
