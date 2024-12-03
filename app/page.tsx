@@ -3,7 +3,7 @@
 import { LatLngExpression } from "leaflet";
 import { useEffect, useState } from "react";
 import { device_result } from "@/types";
-// import MapComponent from "@/components/map-component";
+import MapComponent from "@/components/map-component";
 
 function Home() {
   const position: LatLngExpression = [51.505, -0.09];
@@ -20,7 +20,7 @@ function Home() {
 
       setIsLoading(!1);
       setDeviceResults(results);
-      // console.table(results[0]);
+      console.table(results[0]);
     })();
   }, []);
 
