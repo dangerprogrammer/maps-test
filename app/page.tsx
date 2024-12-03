@@ -27,13 +27,13 @@ function Home() {
   const MapContent = dynamic(() => import('@/components/map-component'), { ssr: !1 });
 
   return <>
-    <main className="flex items-center justify-center min-h-screen">
-      <span className="flex items-center justify-center absolute bg-black h-full w-full">
+    <main className="flex items-center justify-center min-h-screen overflow-hidden">
+      <span className="flex items-center justify-center fixed bg-black h-full w-full">
         <video className="opacity-50 flex object-cover pointer-events-none h-full w-full" autoPlay loop disablePictureInPicture src="./background-video.mp4"></video>
       </span>
       <h1 className="text-6xl font-extrabold max-w-[60vw] text-center z-[100]"><span className="drop-shadow-[0_2px_.2em_#0006]">Saiba para onde o lixo vai com a </span><span className="font-black text-green-400 text-nowrap">Smart Container</span></h1>
     </main>
-    <main className="flex items-center justify-center min-h-screen">
+    <main className="bg-[#0003] flex items-center justify-center min-h-screen z-[100]">
       {isLoading ? <div>Carregando...</div> : <section className="flex gap-3 h-[80vh] w-[80vw] max-w-[96rem] overflow-x-auto pb-2.5 snap-proximity snap-x">
         {deviceResults.map(({ latitude, longitude, timestamp }, ind) => <li className="flex flex-col gap-2 shrink-0 grow h-full w-[calc(100%-4rem)] overflow-hidden snap-center" key={ind}>
           <p>
