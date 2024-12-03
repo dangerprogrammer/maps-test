@@ -3,7 +3,7 @@
 import { LatLngExpression } from "leaflet";
 import { useEffect, useState } from "react";
 import { device_result } from "@/types";
-import {MapComponent} from "@/components/map-component";
+import MapComponent from "@/components/map-component";
 
 function Home() {
   const position: LatLngExpression = [51.505, -0.09];
@@ -12,7 +12,11 @@ function Home() {
 
   useEffect(() => {
     async function getGPS() {
-      const data = await fetch('http://127.0.0.1:8000/api/contentors/'), gps = (await data.json()),
+      const data = await fetch('http://127.0.0.1:8000/api/contentors/');
+
+      if (!data) return console.error("Oh não! Erro ao carregar a API!");
+      
+      const gps = await data.json(),
         { results } = gps;
 
       setIsLoading(!1);

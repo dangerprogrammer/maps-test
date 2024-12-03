@@ -9,4 +9,4 @@ function MapComponent({ position, children }: { position: LatLngExpression, chil
     </MapContainer>
 };
 
-export { MapComponent };
+export default MapComponent;
