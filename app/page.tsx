@@ -13,7 +13,7 @@ function Home() {
 
   useEffect(() => {
     (async () => {
-      const data = await fetch('http://127.0.0.1:8000/api/contentors/');
+      const data = await fetch('http://127.0.0.1:8000/api/contentors_gps/');
 
       if (!data) return console.error("Oh não! Erro ao carregar a API!");
 
