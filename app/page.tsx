@@ -4,6 +4,7 @@ import { LatLngExpression } from "leaflet";
 import { useEffect, useState } from "react";
 import { device_result } from "@/types";
 import MapComponent from "@/components/map-component";
+import dynamic from "next/dynamic";
 
 function Home() {
   const position: LatLngExpression = [51.505, -0.09];
@@ -26,10 +27,12 @@ function Home() {
 
   if (isLoading) return <div>Carregando...</div>;
 
+  const MapContent = dynamic(() => import('@/components/map-component'), { ssr: !1 });
+
   return <>
     <h1>Hello, World!</h1>
     <section className="map-container">
-      <MapComponent position={position}></MapComponent>
+      <MapContent position={position}></MapContent>
     </section>
   </>
 }
