@@ -10,7 +10,6 @@ function Home() {
   const [deviceResults, setDeviceResults] = useState<device_result[]>([]);
   const [isLoading, setIsLoading] = useState(!0);
 
-  /*
   useEffect(() => {
     async function getGPS() {
       const data = await fetch('http://127.0.0.1:8000/api/contentors/'), gps = (await data.json()),
@@ -23,7 +22,6 @@ function Home() {
 
     getGPS();
   }, []);
-  */
 
   if (isLoading) return <div>Carregando...</div>;
 

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/styles/globals.css";
 import "leaflet/dist/leaflet.css";
-import "./map.css";
+import "@/styles/map.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
