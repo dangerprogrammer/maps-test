@@ -29,7 +29,7 @@ function Home() {
   return <>
     <h1>Hello, World!</h1>
     <section className="map-container">
-      {/* <MapComponent position={position}></MapComponent> */}
+      <MapComponent position={position}></MapComponent>
     </section>
   </>
 }
