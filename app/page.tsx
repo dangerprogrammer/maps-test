@@ -1,19 +1,19 @@
 'use client';
 
-import { LatLngExpression } from "leaflet";
+import L from "leaflet";
 import { useEffect, useState } from "react";
 import { device_result } from "@/types";
 import dynamic from "next/dynamic";
 import { decimalToSexagesimal } from "geolib";
+import { Marker, Popup } from "react-leaflet";
 
 function Home() {
-  const position: LatLngExpression = [51.505, -0.09];
   const [deviceResults, setDeviceResults] = useState<device_result[]>([]);
   const [isLoading, setIsLoading] = useState(!0);
 
   useEffect(() => {
     (async () => {
-      const data = await fetch('http://127.0.0.1:8000/api/contentors_gps/');
+      const data = await fetch('http://127.0.0.1:8000/api/Contentors/');
 
       if (!data) return console.error("Oh não! Erro ao carregar a API!");
 
@@ -26,6 +26,13 @@ function Home() {
 
   const MapContent = dynamic(() => import('@/components/map-component'), { ssr: !1 });
 
+  const meuIcone = L.icon({
+    iconUrl: '/trash-bin.png', // Substitua pelo caminho do seu arquivo PNG
+    iconSize: [38, 38], // Tamanho do ícone
+    iconAnchor: [19, 38], // Ponto de ancoragem (base do ícone)
+    popupAnchor: [0, -38], // Posição do popup em relação ao ícone
+  });
+
   return <>
     <main className="flex items-center justify-center min-h-screen overflow-hidden">
       <span className="flex items-center justify-center fixed bg-black h-full w-full">
@@ -35,14 +42,18 @@ function Home() {
     </main>
     <main className="bg-[#0003] flex items-center justify-center min-h-screen z-[100]">
       {isLoading ? <div>Carregando...</div> : <section className="flex gap-3 h-[80vh] w-[80vw] max-w-[96rem] overflow-x-auto pb-2.5 snap-proximity snap-x">
-        {deviceResults.map(({ latitude, longitude, timestamp }, ind) => <li className="flex flex-col gap-2 shrink-0 grow h-full w-[calc(100%-4rem)] overflow-hidden snap-center" key={ind}>
+        {deviceResults.map((result, ind) => <li className="flex flex-col gap-2 shrink-0 grow h-full w-[calc(100%-4rem)] overflow-hidden snap-center" key={ind}>
           <p>
-            <span>Latitude: {decimalToSexagesimal(latitude)}</span><br />
-            <span>Longitude: {decimalToSexagesimal(longitude)}</span><br />
-            <span>Data e horário: {new Date(timestamp).toLocaleString()}</span>
+            <span>Latitude: {decimalToSexagesimal(result.latitude)}</span><br />
+            <span>Longitude: {decimalToSexagesimal(result.longitude)}</span><br />
+            <span>Data e horário: {new Date(result.timestamp).toLocaleString()}</span>
           </p>
           <span className="bg-white h-full w-full rounded-2xl overflow-hidden">
-          <MapContent position={[latitude, longitude]}></MapContent>
+            <MapContent position={[result.latitude, result.longitude]}>
+              <Marker position={[result.latitude, result.longitude]} icon={meuIcone}>
+                <Popup>Device address: {result.device_addr}<br />Battery Level: {result.battery_level}<br />Is tipped over: {result.is_tipped_over ? 'Verdadeiro' : 'Falso'}</Popup>
+              </Marker>
+            </MapContent>
           </span>
         </li>)}
       </section>}
